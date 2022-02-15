@@ -1,21 +1,16 @@
-import 'package:flutter/material.dart';
-
-class CartItem extends StatelessWidget {
+class CartItem {
   final String id;
+  final String productId;
   final String title;
-  final int quantity;
+  int quantity;
   final double price;
+  final String urlImage;
 
-  const CartItem({
-    Key? key,
-    required this.id,
-    required this.title,
-    required this.quantity,
-    required this.price,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  CartItem(
+      {required this.id,
+      required this.productId,
+      required this.title,
+      this.quantity = 1,
+      required this.price,
+      required this.urlImage});
 }

@@ -3,16 +3,16 @@ import 'package:shop/controller/controller_products_store.dart';
 
 import 'package:shop/models/product.dart';
 
-class ProductDetailScren extends StatefulWidget {
-  ProductDetailScren({
+class ProductDetailScreen extends StatefulWidget {
+  ProductDetailScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ProductDetailScren> createState() => _ProductDetailScrenState();
+  State<ProductDetailScreen> createState() => _ProductDetailScrenState();
 }
 
-class _ProductDetailScrenState extends State<ProductDetailScren> {
+class _ProductDetailScrenState extends State<ProductDetailScreen> {
   final controller = ControllerProductsStore();
 
   @override
