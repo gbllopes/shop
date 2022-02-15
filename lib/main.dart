@@ -5,6 +5,8 @@ import 'package:shop/utils/app_routes.dart';
 import 'package:shop/views/product_detail_screen.dart';
 import 'package:shop/views/products_overview_screen.dart';
 
+import 'controller/controller_cart_store.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -13,7 +15,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<ControllerProductsStore>(
-          create: (_) => ControllerProductsStore(),
+            create: (_) => ControllerProductsStore()),
+        Provider<ControllerCartStore>(
+          create: (_) => ControllerCartStore(),
         )
       ],
       child: MaterialApp(

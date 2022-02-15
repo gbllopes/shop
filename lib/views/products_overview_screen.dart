@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/controller/controller_cart_store.dart';
+import 'package:shop/widgets/badge.dart';
 import 'package:shop/widgets/product_grid.dart';
 
 class ProductsOverviewScreen extends StatefulWidget {
@@ -15,6 +19,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = Provider.of<ControllerCartStore>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Minha loja'),
@@ -41,7 +47,14 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 value: FavoriteOptions.All,
               ),
             ],
-          )
+          ),
+          Observer(
+            builder: (_) => Badge(
+              child:
+                  IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+              value: cartController.items.length,
+            ),
+          ),
         ],
       ),
       body: ProductGrid(showFavoriteOnly: _showFavoriteOnly),
