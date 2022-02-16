@@ -74,4 +74,9 @@ abstract class ControllerCartStoreBase with Store {
               urlImage: existingCartItem.urlImage,
             ));
   }
+
+  @action
+  void clearCart() {
+    _items = ObservableMap.of({});
+  }
 }

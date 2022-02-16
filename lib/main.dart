@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/controller/controller_order_store.dart';
 import 'package:shop/controller/controller_products_store.dart';
 import 'package:shop/utils/app_routes.dart';
 import 'package:shop/views/cart_screen.dart';
+import 'package:shop/views/orders_screen.dart';
 import 'package:shop/views/product_detail_screen.dart';
 import 'package:shop/views/products_overview_screen.dart';
 
@@ -19,6 +21,9 @@ class MyApp extends StatelessWidget {
             create: (_) => ControllerProductsStore()),
         Provider<ControllerCartStore>(
           create: (_) => ControllerCartStore(),
+        ),
+        Provider<ControllerOrderStore>(
+          create: (_) => ControllerOrderStore(),
         )
       ],
       child: MaterialApp(
@@ -35,6 +40,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.LIST_PRODUCTS: (context) => ProductsOverviewScreen(),
           AppRoutes.PRODUCT_DETAIL: (context) => ProductDetailScreen(),
           AppRoutes.CART_DETAIL: (context) => CartScreen(),
+          AppRoutes.LIST_ORDERS: (context) => OrdersScreen(),
         },
       ),
     );

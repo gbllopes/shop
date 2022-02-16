@@ -39,6 +39,28 @@ mixin _$ControllerCartStore on ControllerCartStoreBase, Store {
   }
 
   @override
+  void removeItemFromCart(String productId) {
+    final _$actionInfo = _$ControllerCartStoreBaseActionController.startAction(
+        name: 'ControllerCartStoreBase.removeItemFromCart');
+    try {
+      return super.removeItemFromCart(productId);
+    } finally {
+      _$ControllerCartStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeUnityItemFromCart(String productId) {
+    final _$actionInfo = _$ControllerCartStoreBaseActionController.startAction(
+        name: 'ControllerCartStoreBase.removeUnityItemFromCart');
+    try {
+      return super.removeUnityItemFromCart(productId);
+    } finally {
+      _$ControllerCartStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 

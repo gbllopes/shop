@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/controller/controller_cart_store.dart';
+import 'package:shop/controller/controller_order_store.dart';
 import 'package:shop/widgets/cart_item_widget.dart';
 
 class CartScreen extends StatelessWidget {
@@ -44,7 +45,13 @@ class CartScreen extends StatelessWidget {
                   ),
                   Spacer(),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Provider.of<ControllerOrderStore>(context,
+                                listen: false)
+                            .addOrder(cartController.items.values.toList(),
+                                cartController.totalAmount);
+                        cartController.clearCart();
+                      },
                       child: Text(
                         'COMPRAR',
                         style: TextStyle(color: Theme.of(context).primaryColor),
