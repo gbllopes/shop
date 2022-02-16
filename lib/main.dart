@@ -7,6 +7,7 @@ import 'package:shop/views/cart_screen.dart';
 import 'package:shop/views/orders_screen.dart';
 import 'package:shop/views/product_detail_screen.dart';
 import 'package:shop/views/products_overview_screen.dart';
+import 'package:shop/views/products_screen.dart';
 
 import 'controller/controller_cart_store.dart';
 
@@ -30,17 +31,19 @@ class MyApp extends StatelessWidget {
         title: 'Minha Loja',
         theme: ThemeData(
             primarySwatch: Colors.purple,
+            primaryColor: Colors.purple,
             colorScheme: ColorScheme.fromSwatch().copyWith(
               secondary: Colors.deepOrange, // Your accent color
             ),
             fontFamily: 'Lato'),
         home: ProductsOverviewScreen(),
-        initialRoute: AppRoutes.LIST_PRODUCTS,
+        // initialRoute: AppRoutes.HOME,
         routes: {
-          AppRoutes.LIST_PRODUCTS: (context) => ProductsOverviewScreen(),
+          AppRoutes.HOME: (context) => ProductsOverviewScreen(),
           AppRoutes.PRODUCT_DETAIL: (context) => ProductDetailScreen(),
           AppRoutes.CART_DETAIL: (context) => CartScreen(),
           AppRoutes.LIST_ORDERS: (context) => OrdersScreen(),
+          AppRoutes.PRODUCTS: (context) => ProductsScreen(),
         },
       ),
     );

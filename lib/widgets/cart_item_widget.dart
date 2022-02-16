@@ -30,9 +30,28 @@ class CartItemWidget extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         ),
         direction: DismissDirection.endToStart,
+        confirmDismiss: (_) {
+          return showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text('Tem certeza?'),
+                    content: Text('Quer remover o item do carrinho?'),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(false);
+                          },
+                          child: Text('Não')),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: Text('Sim')),
+                    ],
+                  ));
+        },
         onDismissed: (_) {
           cartController.removeItemFromCart(cartItemProductId);
-          print(cartController.items.length);
         },
         child: Card(
           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 04),
@@ -42,29 +61,29 @@ class CartItemWidget extends StatelessWidget {
               title: Text(cartController.items[cartItemProductId]!.title),
               subtitle: Text(
                   'Total: R\$${(cartController.items[cartItemProductId]!.price * cartController.items[cartItemProductId]!.quantity).toStringAsFixed(2)}'),
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  cartController.items[cartItemProductId]!.urlImage,
-                  width: 65,
-                ),
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    cartController.items[cartItemProductId]!.urlImage),
               ),
               trailing: Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   Text(
-                    // '${cartItem.quantity}x',
                     '${cartController.items[cartItemProductId]!.quantity}x',
                     style: TextStyle(),
                   ),
-                  // SizedBox(width: 10),
-                  IconButton(
-                      onPressed: () {
-                        cartController
-                            .removeUnityItemFromCart(cartItemProductId);
-                      },
-                      icon: Icon(Icons.remove_circle_outline_rounded,
-                          color: Colors.redAccent))
+                  if (cartController.items[cartItemProductId]!.quantity >
+                      1) ...[
+                    IconButton(
+                        onPressed: () {
+                          cartController
+                              .removeUnityItemFromCart(cartItemProductId);
+                        },
+                        icon: Icon(Icons.remove_circle_outline_rounded,
+                            color: Colors.redAccent))
+                  ] else ...[
+                    SizedBox(width: 50)
+                  ]
                 ],
               ),
             ),
