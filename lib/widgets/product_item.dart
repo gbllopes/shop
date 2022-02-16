@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/controller/controller_products_store.dart';
 
 import 'package:shop/models/product.dart';
+import 'package:shop/utils/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
@@ -12,6 +15,8 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ControllerProductsStore productController =
+        Provider.of<ControllerProductsStore>(context);
     return Card(
       child: ListTile(
         title: Text(product.title),
@@ -23,13 +28,18 @@ class ProductItem extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(AppRoutes.PRODUCT_FORM, arguments: product);
+                  },
                   icon: Icon(
                     Icons.edit,
                     color: Theme.of(context).primaryColor,
                   )),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    productController.deleteProduct(product);
+                  },
                   icon: Icon(
                     Icons.delete,
                     color: Theme.of(context).errorColor,

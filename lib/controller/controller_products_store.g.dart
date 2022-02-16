@@ -12,13 +12,13 @@ mixin _$ControllerProductsStore on ControllerProductsStoreBase, Store {
   final _$_itemsAtom = Atom(name: 'ControllerProductsStoreBase._items');
 
   @override
-  List<Product> get _items {
+  ObservableList<Product> get _items {
     _$_itemsAtom.reportRead();
     return super._items;
   }
 
   @override
-  set _items(List<Product> value) {
+  set _items(ObservableList<Product> value) {
     _$_itemsAtom.reportWrite(value, super._items, () {
       super._items = value;
     });

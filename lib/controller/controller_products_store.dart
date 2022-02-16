@@ -8,7 +8,7 @@ class ControllerProductsStore = ControllerProductsStoreBase
 
 abstract class ControllerProductsStoreBase with Store {
   @observable
-  List<Product> _items = DUMMY_PRODUCTS;
+  ObservableList<Product> _items = ObservableList.of(DUMMY_PRODUCTS);
 
   List<Product> get items => [..._items];
 
@@ -18,4 +18,16 @@ abstract class ControllerProductsStoreBase with Store {
 
   @action
   void addProduct(Product product) => _items.add(product);
+
+  @action
+  void deleteProduct(Product product) => _items.remove(product);
+
+  @action
+  void updateProduct(Product product) {
+    final index = _items.indexWhere((prod) => prod.id == product.id);
+
+    if (index > 0) {
+      _items[index] = product;
+    }
+  }
 }
