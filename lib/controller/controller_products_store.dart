@@ -39,17 +39,17 @@ abstract class ControllerProductsStoreBase with Store {
     final response = await http.get(_baseUrl);
     Map<String, dynamic> data = jsonDecode(response.body);
     _items.clear();
-    if (!data.isEmpty) {
-      data.forEach((productId, productData) {
-        _items.add(Product(
-            id: productId,
-            title: productData['title'],
-            price: productData['price'],
-            description: productData['description'],
-            imageUrl: productData['imageUrl'],
-            isFavorite: productData['isFavorite']));
-      });
-    }
+    // if (!data.isEmpty) {
+    //   data.forEach((productId, productData) {
+    //     _items.add(Product(
+    //         id: productId,
+    //         title: productData['title'],
+    //         price: productData['price'],
+    //         description: productData['description'],
+    //         imageUrl: productData['imageUrl'],
+    //         isFavorite: productData['isFavorite']));
+    //   });
+    // }
   }
 
   @action
