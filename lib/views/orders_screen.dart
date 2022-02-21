@@ -12,13 +12,11 @@ class OrdersScreen extends StatefulWidget {
   State<OrdersScreen> createState() => _OrdersScreenState();
 }
 
-class _OrdersScreenState extends State<OrdersScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<ControllerOrderStore>(context, listen: false).getOrders();
-  }
+Future<void> _refreshOrders(BuildContext context) async {
+  await Provider.of<ControllerOrderStore>(context, listen: false).getOrders();
+}
 
+class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
     final ControllerOrderStore orderController =
@@ -28,11 +26,24 @@ class _OrdersScreenState extends State<OrdersScreen> {
         title: Text('Meus pedidos'),
         backgroundColor: Colors.purple,
       ),
-      body: Observer(
-        builder: (_) => ListView.builder(
-            itemCount: orderController.orders.length,
-            itemBuilder: (context, index) =>
-                OrderWidget(order: orderController.orders[index])),
+      body: RefreshIndicator(
+        onRefresh: () => _refreshOrders(context),
+        child: Observer(
+          builder: (_) => FutureBuilder(
+            future: Provider.of<ControllerOrderStore>(context, listen: false)
+                .getOrders(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else {
+                return ListView.builder(
+                    itemCount: orderController.orders.length,
+                    itemBuilder: (context, index) =>
+                        OrderWidget(order: orderController.orders[index]));
+              }
+            },
+          ),
+        ),
       ),
       drawer: AppDrawer(),
     );

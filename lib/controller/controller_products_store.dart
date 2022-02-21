@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobx/mobx.dart';
 import 'package:shop/models/product.dart';
+import 'package:shop/utils/constants.dart';
 part 'controller_products_store.g.dart';
 
 class ControllerProductsStore = ControllerProductsStoreBase
@@ -20,8 +21,8 @@ abstract class ControllerProductsStoreBase with Store {
 
   @action
   Future<void> toggleFavorite(Product product) async {
-    Uri _baseUrl = Uri.parse(
-        'https://flutter-shop-gbl-default-rtdb.firebaseio.com/products/${product.id}.json');
+    Uri _baseUrl =
+        Uri.parse('${Constants.BASE_API_URL}/products/${product.id}.json');
     product.isFavorite = !product.isFavorite;
     final index = _items.indexWhere((prod) => prod.id == product.id);
     if (index >= 0) {
@@ -33,8 +34,7 @@ abstract class ControllerProductsStoreBase with Store {
 
   @action
   Future<void> loadProducts() async {
-    Uri _baseUrl = Uri.parse(
-        'https://flutter-shop-gbl-default-rtdb.firebaseio.com/products.json');
+    Uri _baseUrl = Uri.parse('${Constants.BASE_API_URL}/products.json');
 
     final response = await http.get(_baseUrl);
     Map<String, dynamic> data = jsonDecode(response.body);
@@ -54,8 +54,7 @@ abstract class ControllerProductsStoreBase with Store {
 
   @action
   Future<void> addProduct(Product product) async {
-    Uri _baseUrl = Uri.parse(
-        'https://flutter-shop-gbl-default-rtdb.firebaseio.com/products.json');
+    Uri _baseUrl = Uri.parse('${Constants.BASE_API_URL}/products.json');
     final response = await http.post(
       _baseUrl,
       body: json.encode({
@@ -78,8 +77,7 @@ abstract class ControllerProductsStoreBase with Store {
 
   @action
   Future<void> deleteProduct(String id) async {
-    Uri url = Uri.parse(
-        'https://flutter-shop-gbl-default-rtdb.firebaseio.com/products/${id}.json');
+    Uri url = Uri.parse('${Constants.BASE_API_URL}/products/${id}.json');
 
     final index = _items.indexWhere((prod) => prod.id == id);
     Product product = _items[index];
@@ -94,8 +92,8 @@ abstract class ControllerProductsStoreBase with Store {
 
   @action
   Future<void> updateProduct(Product product) async {
-    Uri _baseUrl = Uri.parse(
-        'https://flutter-shop-gbl-default-rtdb.firebaseio.com/products/${product.id}.json');
+    Uri _baseUrl =
+        Uri.parse('${Constants.BASE_API_URL}/products/${product.id}.json');
     final index = _items.indexWhere((prod) => prod.id == product.id);
     if (index >= 0) {
       await http.patch(_baseUrl,
