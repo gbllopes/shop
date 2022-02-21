@@ -38,6 +38,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed(AppRoutes.PRODUCTS);
             },
           ),
+          Divider(),
         ],
       ),
     );

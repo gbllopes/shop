@@ -24,18 +24,20 @@ mixin _$ControllerOrderStore on ControllerOrderStoreBase, Store {
     });
   }
 
-  final _$ControllerOrderStoreBaseActionController =
-      ActionController(name: 'ControllerOrderStoreBase');
+  final _$getOrdersAsyncAction =
+      AsyncAction('ControllerOrderStoreBase.getOrders');
 
   @override
-  void addOrder(List<CartItem> products, double total) {
-    final _$actionInfo = _$ControllerOrderStoreBaseActionController.startAction(
-        name: 'ControllerOrderStoreBase.addOrder');
-    try {
-      return super.addOrder(products, total);
-    } finally {
-      _$ControllerOrderStoreBaseActionController.endAction(_$actionInfo);
-    }
+  Future<void> getOrders() {
+    return _$getOrdersAsyncAction.run(() => super.getOrders());
+  }
+
+  final _$addOrderAsyncAction =
+      AsyncAction('ControllerOrderStoreBase.addOrder');
+
+  @override
+  Future<void> addOrder(Map<String, CartItem> products, double total) {
+    return _$addOrderAsyncAction.run(() => super.addOrder(products, total));
   }
 
   @override

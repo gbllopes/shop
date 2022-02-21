@@ -23,6 +23,7 @@ class _ProductDetailScrenState extends State<ProductDetailScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text(product.title),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: SingleChildScrollView(
           child: Column(

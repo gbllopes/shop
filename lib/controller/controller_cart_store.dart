@@ -31,7 +31,7 @@ abstract class ControllerCartStoreBase with Store {
   void addItemToCart(Product product) {
     if (_items.containsKey(product.id)) {
       _items.update(
-          product.id,
+          product.id!,
           (existingItem) => CartItem(
                 id: existingItem.id,
                 productId: existingItem.productId,
@@ -42,10 +42,10 @@ abstract class ControllerCartStoreBase with Store {
               ));
     } else {
       _items.putIfAbsent(
-          product.id,
+          product.id!,
           () => CartItem(
                 id: Random().nextDouble().toString(),
-                productId: product.id,
+                productId: product.id!,
                 title: product.title,
                 quantity: 1,
                 price: product.price,

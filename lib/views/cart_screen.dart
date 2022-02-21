@@ -5,8 +5,15 @@ import 'package:shop/controller/controller_cart_store.dart';
 import 'package:shop/controller/controller_order_store.dart';
 import 'package:shop/widgets/cart_item_widget.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +52,37 @@ class CartScreen extends StatelessWidget {
                   ),
                   Spacer(),
                   TextButton(
-                      onPressed: () {
-                        Provider.of<ControllerOrderStore>(context,
+                    onPressed: () async {
+                      if (cartController.totalAmount > 0) {
+                        setState(() {
+                          _isLoading = true;
+                        });
+
+                        await Provider.of<ControllerOrderStore>(context,
                                 listen: false)
-                            .addOrder(cartController.items.values.toList(),
+                            .addOrder(cartController.items,
                                 cartController.totalAmount);
+
+                        setState(() {
+                          _isLoading = false;
+                        });
                         cartController.clearCart();
-                      },
-                      child: Text(
-                        'COMPRAR',
-                        style: TextStyle(color: Theme.of(context).primaryColor),
-                      ))
+                      } else {
+                        return;
+                      }
+                    },
+                    child: _isLoading
+                        ? CircularProgressIndicator()
+                        : Observer(
+                            builder: (_) => Text(
+                              'COMPRAR',
+                              style: TextStyle(
+                                  color: cartController.totalAmount == 0
+                                      ? Colors.grey
+                                      : Theme.of(context).primaryColor),
+                            ),
+                          ),
+                  )
                 ],
               ),
             ),

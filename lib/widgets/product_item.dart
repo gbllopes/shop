@@ -18,41 +18,6 @@ class ProductItem extends StatelessWidget {
     final ControllerProductsStore productController =
         Provider.of<ControllerProductsStore>(context);
 
-    Future<void> _showMyDialog() async {
-      return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Tem certeza?'),
-            content: Container(
-              height: 20,
-              child: Column(
-                children: [
-                  Text('Quer realmente excluir este produto?'),
-                ],
-              ),
-            ),
-            actions: [
-              TextButton(
-                child: Text('Não'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: Text('Sim'),
-                onPressed: () {
-                  productController.deleteProduct(product);
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     return Card(
       child: ListTile(
         title: Text(product.title),
@@ -74,7 +39,26 @@ class ProductItem extends StatelessWidget {
                   )),
               IconButton(
                   onPressed: () {
-                    _showMyDialog();
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text('Excluir Produto'),
+                              content: Text('Deseja excluir este produto?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Não')),
+                                TextButton(
+                                    onPressed: () {
+                                      productController
+                                          .deleteProduct(product.id!);
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Sim')),
+                              ],
+                            ));
                   },
                   icon: Icon(
                     Icons.delete,

@@ -5,8 +5,19 @@ import 'package:shop/controller/controller_order_store.dart';
 import 'package:shop/widgets/app_drawer.dart';
 import 'package:shop/widgets/order_widget.dart';
 
-class OrdersScreen extends StatelessWidget {
+class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
+
+  @override
+  State<OrdersScreen> createState() => _OrdersScreenState();
+}
+
+class _OrdersScreenState extends State<OrdersScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ControllerOrderStore>(context, listen: false).getOrders();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -24,18 +24,44 @@ mixin _$ControllerProductsStore on ControllerProductsStoreBase, Store {
     });
   }
 
-  final _$ControllerProductsStoreBaseActionController =
-      ActionController(name: 'ControllerProductsStoreBase');
+  final _$toggleFavoriteAsyncAction =
+      AsyncAction('ControllerProductsStoreBase.toggleFavorite');
 
   @override
-  void addProduct(Product product) {
-    final _$actionInfo = _$ControllerProductsStoreBaseActionController
-        .startAction(name: 'ControllerProductsStoreBase.addProduct');
-    try {
-      return super.addProduct(product);
-    } finally {
-      _$ControllerProductsStoreBaseActionController.endAction(_$actionInfo);
-    }
+  Future<void> toggleFavorite(Product product) {
+    return _$toggleFavoriteAsyncAction.run(() => super.toggleFavorite(product));
+  }
+
+  final _$loadProductsAsyncAction =
+      AsyncAction('ControllerProductsStoreBase.loadProducts');
+
+  @override
+  Future<void> loadProducts() {
+    return _$loadProductsAsyncAction.run(() => super.loadProducts());
+  }
+
+  final _$addProductAsyncAction =
+      AsyncAction('ControllerProductsStoreBase.addProduct');
+
+  @override
+  Future<void> addProduct(Product product) {
+    return _$addProductAsyncAction.run(() => super.addProduct(product));
+  }
+
+  final _$deleteProductAsyncAction =
+      AsyncAction('ControllerProductsStoreBase.deleteProduct');
+
+  @override
+  Future<void> deleteProduct(String id) {
+    return _$deleteProductAsyncAction.run(() => super.deleteProduct(id));
+  }
+
+  final _$updateProductAsyncAction =
+      AsyncAction('ControllerProductsStoreBase.updateProduct');
+
+  @override
+  Future<void> updateProduct(Product product) {
+    return _$updateProductAsyncAction.run(() => super.updateProduct(product));
   }
 
   @override

@@ -9,6 +9,11 @@ import 'package:shop/widgets/product_item.dart';
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
 
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<ControllerProductsStore>(context, listen: false)
+        .loadProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ControllerProductsStore productController =
@@ -25,13 +30,16 @@ class ProductsScreen extends StatelessWidget {
               icon: Icon(Icons.add))
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(8),
-        child: Observer(
-          builder: (_) => ListView.builder(
-            itemCount: productController.items.length,
-            itemBuilder: (ctx, i) =>
-                ProductItem(product: productController.items[i]),
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Observer(
+            builder: (_) => ListView.builder(
+              itemCount: productController.items.length,
+              itemBuilder: (ctx, i) =>
+                  ProductItem(product: productController.items[i]),
+            ),
           ),
         ),
       ),
